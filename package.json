@@ -1,0 +1,23 @@
+{
+  "name": "ai-trading-signal-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "db:migrate": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile libs/db/knexfile.ts migrate:latest",
+    "db:rollback": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile libs/db/knexfile.ts migrate:rollback"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "knex": "^3.1.0",
+    "mysql2": "^3.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  }
+}

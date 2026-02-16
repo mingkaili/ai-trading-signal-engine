@@ -1,0 +1,27 @@
+"""Root level tooling setup for AI Trading Signal Engine."""
+
+module(
+    name = "ai_trading_signal_engine",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
+bazel_dep(name = "aspect_rules_js", version = "2.3.7")
+bazel_dep(name = "aspect_rules_ts", version = "3.5.3")
+bazel_dep(name = "aspect_rules_jest", version = "0.23.2")
+
+bazel_dep(name = "platforms", version = "0.0.10", dev_dependency = True)
+bazel_dep(name = "rules_oci", version = "2.0.0-alpha2", dev_dependency = True)
+bazel_dep(name = "rules_nodejs", version = "6.3.0", dev_dependency = True)
+bazel_dep(
+    name = "rules_shell",
+    version = "0.4.1",
+    dev_dependency = True,
+)
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")

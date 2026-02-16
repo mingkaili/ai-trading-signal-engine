@@ -1,0 +1,10 @@
+{
+  "name": "ai-trading-signal-engine-db",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "knex": "^3.1.0",
+    "mysql2": "^3.17.1"
+  }
+}
