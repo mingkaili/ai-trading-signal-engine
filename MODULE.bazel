@@ -29,3 +29,15 @@ use_repo(npm, "npm")
 ts_deps = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext")
 ts_deps.deps()
 use_repo(ts_deps, "npm_typescript")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "node",
+    image = "docker.io/library/node",
+    tag = "20-alpine",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64/v8",
+    ],
+)
+use_repo(oci, "node")

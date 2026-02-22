@@ -19,6 +19,32 @@ Create `services/market-data-service/.env` from `.envsample`:
 bazel run //services/market-data-service:market_data_service_bin --define include_env=true
 ```
 
+## Deploy (Docker + AWS ECR/ECS)
+Build tarball docker package (local):
+```
+bazel run //services/market-data-service:market_data_service_image_tarball
+```
+
+If you haven't done this before, authenticate AWS:
+```
+aws configure
+```
+
+This repo uses AWS ECR to host the container image, login:
+```
+aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 852858465265.dkr.ecr.us-west-1.amazonaws.com
+```
+
+Tag the latest image and push:
+```
+docker tag market-data-service:latest 852858465265.dkr.ecr.us-west-1.amazonaws.com/thomas-playground/market-data-service:latest
+docker push 852858465265.dkr.ecr.us-west-1.amazonaws.com/thomas-playground/market-data-service:latest
+```
+
+Deploy in AWS:
+- The container image is hosted in AWS ECR.
+- An ECS task pulls the latest ECR image and deploys it to the ECS service.
+
 ## API
 
 ### POST `/api/jobs/daily-ingest`
