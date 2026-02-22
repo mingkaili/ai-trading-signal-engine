@@ -25,3 +25,7 @@ npm.npm_translate_lock(
     pnpm_lock = "//:pnpm-lock.yaml",
 )
 use_repo(npm, "npm")
+
+ts_deps = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext")
+ts_deps.deps()
+use_repo(ts_deps, "npm_typescript")

@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
+  "workspaces": [
+    "libs/*",
+    "services/*"
+  ],
   "scripts": {
     "db:migrate": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile libs/db/knexfile.ts migrate:latest",
     "db:rollback": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile libs/db/knexfile.ts migrate:rollback"

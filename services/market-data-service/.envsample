@@ -1,0 +1,4 @@
+DATABASE_URL=mysql://user:password@localhost:3306/ai_trading_signal_engine
+MARKET_DATA_PORT=3001
+MARKET_DATA_STOOQ_BASE_URL=https://stooq.com/q/d/l/
+NODE_ENV=development

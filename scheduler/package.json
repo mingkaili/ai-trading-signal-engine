@@ -1,0 +1,12 @@
+{
+  "name": "@ai-trading/scheduler",
+  "private": true,
+  "version": "0.1.0",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2"
+  }
+}

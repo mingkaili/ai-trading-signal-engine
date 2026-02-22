@@ -825,6 +825,33 @@ Run in this order:
 ### Event-driven
 - Document ingest → Gemini scoring → re-run signals for affected symbols
 
+### Scheduler Design
+The scheduler is a component (cron, job.) that calls
+service job endpoints in order. The services do not schedule themselves.
+
+**Responsibilities**
+- Trigger daily, weekly, and event-driven flows.
+- Attach `Idempotency-Key` headers for every job call.
+- Enforce ordering and retry policy with backoff.
+- Provide `asOfDate` / `weekEndDate` parameters and target symbol lists.
+
+**Daily flow**
+1. `POST /api/jobs/daily-ingest` (market-data-service)
+2. `POST /api/jobs/compute-indicators` (market-data-service)
+3. `POST /api/jobs/run-daily-signals` (signal-engine-service)
+
+**Weekly flow**
+1. `POST /api/jobs/weekly-sector-rank` (market-data-service)
+2. `POST /api/jobs/run-weekly-digest` (signal-engine-service)
+
+**Event-driven flow**
+- `POST /api/ai/documents` → `POST /api/ai/score/acceleration` (research-ai-service)
+- On success, trigger `POST /api/jobs/run-daily-signals` for affected symbols.
+
+**Failure handling**
+- If a job fails, retry with exponential backoff.
+- If a job returns `409` (duplicate idempotency key), treat as success.
+
 ---
 
 ## Idempotency & Concurrency
